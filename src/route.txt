@@ -1,0 +1,33 @@
+
+
+app.use(
+  "/user",
+  [(req, res, next) => {
+    console.log("Handling the route user!!");
+    // res.send("Response 1");
+    next();
+  },
+  (req, res, next) => {
+    console.log("Handling The route user2");
+    // res.send("Response2");
+    next();
+  },
+  (req, res, next) => {
+    console.log("Handling The route user3");
+    // res.send("Response3");
+    next();
+  },
+  (req, res, next) => {
+    console.log("Handling The route user4");
+    // res.send("Response4");
+    next();
+  },
+  (req, res, next) => {
+    console.log("Handling The route user5");
+    res.send("Response5");
+  }]
+);
+
+app.listen(3000, () => {
+  console.log("Server is successfully listening on port 3000");
+});

@@ -1,30 +1,19 @@
 const express = require("express");
-
 const app = express(); //Invoke the express function to create an instance
+// const { adminAuth, userAuth } = require("./middlewares/auth");
+// app.use("/admin", adminAuth);
 
-//this will only handle GET call to /user
-app.get("/user", (req, res) => {
-  res.send({ firstname: "Jagruti", lastName: "Hota" });
+//error handling
+app.use("/getAllData", (req, res, next) => {
+  throw new Error("jhbsujbxjuhb");
+  res.send("User Data Sent");
 });
 
-app.post("/user", (req, res) => {
-  //data saved to DB
-  res.send("Data successfully saved to the database!");
+app.use("/", (err, req, res, next) => {
+  if (err) {
+    res.send(500).send("something went wrong");
+  }
 });
-
-app.patch("/user", (req, res) => {
-  //changing
-  res.send("Changed by patch method");
-});
-
-app.delete("/user", (req, res) => {
-  res.send("Deleted Successfully");
-});
-
-app.use("/test", (req, res) => {
-  res.send("Hello from the server");
-});
-
 app.listen(3000, () => {
   console.log("Server is successfully listening on port 3000");
 });
