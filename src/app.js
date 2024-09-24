@@ -1,14 +1,27 @@
 const express = require("express");
 
 const app = express(); //Invoke the express function to create an instance
-app.get("/home", (req, res) => {
-  res.send("This is for the homepage");
+
+//this will only handle GET call to /user
+app.get("/user", (req, res) => {
+  res.send({ firstname: "Jagruti", lastName: "Hota" });
 });
 
-app.get("/start", (req, res) => {
-  res.send("This is for the main page");
+app.post("/user", (req, res) => {
+  //data saved to DB
+  res.send("Data successfully saved to the database!");
 });
-app.use((req, res) => {
+
+app.patch("/user", (req, res) => {
+  //changing
+  res.send("Changed by patch method");
+});
+
+app.delete("/user", (req, res) => {
+  res.send("Deleted Successfully");
+});
+
+app.use("/test", (req, res) => {
   res.send("Hello from the server");
 });
 
