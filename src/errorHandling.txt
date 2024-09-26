@@ -1,0 +1,11 @@
+//error handling
+app.use("/getAllData", (req, res, next) => {
+  throw new Error("jhbsujbxjuhb");
+  res.send("User Data Sent");
+});
+
+app.use("/", (err, req, res, next) => {
+  if (err) {
+    res.send(500).send("something went wrong");
+  }
+});
