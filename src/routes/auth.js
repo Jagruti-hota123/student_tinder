@@ -22,7 +22,7 @@ authRouter.post("/signup", async (req, res) => {
     const data = await User.create({
       emailId,
       firstName,
-      emailId,
+      lastName,
       password: encryptPass,
     });
     if (!data) {
@@ -30,7 +30,6 @@ authRouter.post("/signup", async (req, res) => {
     } else {
       res.status(200).json({ msg: "User Created Successfully", data: data });
     }
-    res.send("User added Successfully");
   } catch (error) {
     res.status(400).send("Error saving the user  --" + error.message);
   }

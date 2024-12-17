@@ -22,17 +22,19 @@ profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
     Object.keys(req.body).forEach((key) => (loggedInuser[key] = req.body[key]));
     console.log(loggedInuser);
     await loggedInuser.save();
-    res
-      .status(200)
-      .json({
-        message: `${loggedInuser.firstName}'s Profile Updated Successfully`,
-        data: loggedInuser,
-      });
+    res.status(200).json({
+      message: `${loggedInuser.firstName}'s Profile Updated Successfully`,
+      data: loggedInuser,
+    });
 
     // console.log(user);
   } catch (error) {
     res.status(400).send("Error : " + error.message);
   }
+});
+
+profileRouter.patch("/profile/password", userAuth, async (req, res)=>{
+  
 });
 
 module.exports = profileRouter;
