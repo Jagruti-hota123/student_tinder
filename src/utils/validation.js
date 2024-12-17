@@ -12,18 +12,19 @@ const validateSchemaData = (req) => {
 
 const validateEditProfileData = (req) => {
   const allowedEditFields = [
-    firstName,
-    lastName,
-    emailId,
-    about,
-    skills,
-    age,
-    gender,
-    photoUrl,
+    "firstName",
+    "lastName",
+    "emailId",
+    "about",
+    "skills",
+    "gender",
+    "age",
+    "photoUrl",
   ];
-  const isEditAllowed= Object.keys(req.body).every((field)=>allowedEditFields.includes(field))
-
-  })
+  const isEditAllowed = Object.keys(req.body).every((field) =>
+    allowedEditFields.includes(field)
+  );
+  return isEditAllowed;
 };
 
-module.exports = { validateSchemaData };
+module.exports = { validateSchemaData, validateEditProfileData };
