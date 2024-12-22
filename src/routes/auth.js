@@ -38,30 +38,37 @@ authRouter.post("/signup", async (req, res) => {
 //post method for login
 authRouter.post("/login", async (req, res) => {
   try {
+    console.log("Request body:", req.body);
+
     const { password, emailId } = req.body;
+
     if (!validator.isEmail(emailId)) {
-      throw new Error("EMail Id is not valid");
+      return res.status(400).json({ msg: "Invalid email format" });
     }
-    //check if emailId already exists or not
+
     const user = await User.findOne({ emailId: emailId });
     if (!user) {
-      throw new Error("Invalid Credentials");
+      return res.status(400).json({ msg: "Email not found" });
     }
-    //if user is there check the password is correct or not
-    const isPasswordValid = await user.validatePassword;
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      throw new error("Invalid credentials");
-    } else {
-      //create jwt token
-      const token = await user.getJWT();
-      //store it inside a cookie
-      res.cookie("token", token);
-      res.send("login Successful");
+      return res.status(400).json({ msg: "Incorrect password" });
     }
+
+    const token = await user.getJWT();
+    res.cookie("token", token, { httpOnly: true });
+
+    return res.json({
+      msg: "Login successful",
+      data: user,
+    });
   } catch (error) {
-    res.status(400).json({ msg: `error--- ${error.message}` });
+    console.error("Error:", error.message);
+    return res.status(400).json({ msg: `Error: ${error.message}` });
   }
 });
+
 
 authRouter.post("/logout", async (req, res) => {
   try {
