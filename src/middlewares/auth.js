@@ -5,7 +5,7 @@ const userAuth = async (req, res, next) => {
   try {
     const { token } = req.cookies; // Ensure cookie-parser middleware is used in the app
     if (!token) {
-      throw new Error("Invalid Token");
+      return res.status(400).json({ message: "Please Login first" });
     }
 
     const decodedObj = await jwt.verify(token, "DEV_STUDENT@123"); // Verify token

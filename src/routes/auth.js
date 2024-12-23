@@ -25,10 +25,18 @@ authRouter.post("/signup", async (req, res) => {
       lastName,
       password: encryptPass,
     });
-    if (!data) {
+    const savedUser = await data.save();
+    const token = await savedUser.getJWT();
+
+    res.cookie("token", token, {
+      expires: new Date(Date.now() + 8 * 3600000),
+    });
+    if (!savedUser) {
       res.status(500).json({ msg: "Something went wrong" });
     } else {
-      res.status(200).json({ msg: "User Created Successfully", data: data });
+      res
+        .status(200)
+        .json({ msg: "User Created Successfully", data: savedUser });
     }
   } catch (error) {
     res.status(400).send("Error saving the user  --" + error.message);
@@ -48,7 +56,7 @@ authRouter.post("/login", async (req, res) => {
 
     const user = await User.findOne({ emailId: emailId });
     if (!user) {
-      return res.status(400).json({ msg: "Email not found" });
+      return res.status(400).json({ msg: "Invalid email Id" });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -68,7 +76,6 @@ authRouter.post("/login", async (req, res) => {
     return res.status(400).json({ msg: `Error: ${error.message}` });
   }
 });
-
 
 authRouter.post("/logout", async (req, res) => {
   try {

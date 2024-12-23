@@ -8,16 +8,16 @@ const profileRouter = require("./routes/profile");
 const userRouter = require("./routes/user");
 const cors = require("cors");
 
+//to read response in json
+app.use(express.json());
+//to parse or read the cookies
+app.use(cookieParser());
 app.use(
   cors({
     origin: "http://localhost:5173",
     credentials: true,
   })
 );
-//to read response in json
-app.use(express.json());
-//to parse or read the cookies
-app.use(cookieParser());
 
 app.use("/", authRouter);
 app.use("/", profileRouter);

@@ -1,5 +1,4 @@
 const validator = require("validator");
-const bcrypt = require("bcrypt");
 const validateSchemaData = (req) => {
   const { firstName, lastName, emailId, password } = req.body;
   if (!firstName || !lastName) {
@@ -11,14 +10,13 @@ const validateSchemaData = (req) => {
   }
 };
 
-
 const validateEditProfileData = (req) => {
   const allowedEditFields = [
     "firstName",
     "lastName",
     "emailId",
     "about",
-    "skills",
+    // "skills",
     "gender",
     "age",
     "photoUrl",
