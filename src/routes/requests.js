@@ -77,7 +77,7 @@ requestRouter.post(
         data: data,
       });
     } catch (error) {
-      res.send(400).send("Error" + error);
+      res.status(400).send("Error" + error);
     }
   }
 );

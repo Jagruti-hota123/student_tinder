@@ -21,10 +21,22 @@ const validateEditProfileData = (req) => {
     "age",
     "photoUrl",
   ];
+
   const isEditAllowed = Object.keys(req.body).every((field) =>
     allowedEditFields.includes(field)
   );
-  return isEditAllowed;
+
+  if (!isEditAllowed) {
+    return false;
+  }
+
+  const { gender } = req.body;
+
+  if (gender && !["male", "female", "others"].includes(gender)) {
+    return false;
+  }
+
+  return true;
 };
 
 module.exports = { validateSchemaData, validateEditProfileData };

@@ -6,7 +6,6 @@ const { validateEditProfileData } = require("../utils/validation");
 //get method to see profile of specific user
 
 profileRouter.put("/profile/edit", userAuth, async (req, res) => {
-  console.log(" Frontend Reques", req);
   try {
     if (!validateEditProfileData(req)) {
       return res.status(400).send("Invalid Edit Request");
