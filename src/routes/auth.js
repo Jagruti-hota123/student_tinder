@@ -66,7 +66,7 @@ authRouter.post("/login", async (req, res) => {
 
     const token = await user.getJWT();
     res.cookie("token", token, {
-      maxAge: 1200000,
+      maxAge: 3 * 24 * 60 * 60 * 1000,
     });
 
     return res.status(200).json({
