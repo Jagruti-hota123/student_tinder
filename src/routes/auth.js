@@ -83,10 +83,10 @@ authRouter.post("/login", async (req, res) => {
 
 authRouter.post("/logout", async (req, res) => {
   try {
-    res.cookie("token", null, { expires: new Date(Date.now()) });
-    res.send("Logged Out SuccessFully");
+    // Simply send a success message for token-based logout
+    res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).json({ error: error.message });
   }
 });
 
