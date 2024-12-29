@@ -13,11 +13,16 @@ app.use(express.json());
 //to parse or read the cookies
 app.use(cookieParser());
 app.options("*", cors());
+// app.use(
+//   cors({
+//     // origin: "student-tinder-web.vercel.app",
+//     origin: "http://localhost:5173",
+//     credentials: true,
+//   })
+// );
 app.use(
   cors({
-    // origin: "student-tinder-web.vercel.app",
-    origin: "http://localhost:5173",
-    credentials: true,
+    origin: "*",
   })
 );
 
